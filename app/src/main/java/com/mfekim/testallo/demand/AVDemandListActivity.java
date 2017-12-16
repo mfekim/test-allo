@@ -1,5 +1,7 @@
 package com.mfekim.testallo.demand;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +18,16 @@ public class AVDemandListActivity extends AVBaseActivity {
 
     /** Fragment Tag. */
     private static final String FRAGMENT_TAG = "demand_list_fragment_tag";
+
+    /**
+     * Launches the activity.
+     *
+     * @param context Context.
+     */
+    public static void launchActivity(Context context) {
+        Intent intent = new Intent(context, AVDemandListActivity.class);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

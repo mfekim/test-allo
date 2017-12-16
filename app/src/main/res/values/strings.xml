@@ -1,8 +1,12 @@
 <resources>
 
     <!-- General -->
+    <string name="av_retry">Réessayer</string>
+    <string name="av_exit">Quitter</string>
     <string name="av_object">Objet</string>
     <string name="av_service">Service</string>
+    <string name="av_retrieve_data_failed_message">Échec de la récupération des données.</string>
+    <string name="av_no_internet_connection_first_launch_message">Une connexion Internet est nécessaire lors du premier lancement de l\'application.</string>
 
     <!-- Application name -->
     <string name="av_app_name">test-allo</string>

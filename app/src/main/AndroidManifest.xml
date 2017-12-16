@@ -4,6 +4,7 @@
 
     <!-- Permissions -->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <!-- Application -->
     <application
@@ -15,12 +16,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!-- Activity Main -->
-        <activity android:name=".demand.AVDemandListActivity">
+        <!-- Activity Launch -->
+        <activity
+            android:name=".AVLaunchActivity"
+            android:noHistory="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+
+        <!-- Activity Demand List -->
+        <activity
+            android:name=".demand.AVDemandListActivity">
         </activity>
 
     </application>
