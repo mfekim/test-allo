@@ -1,11 +1,13 @@
 package com.mfekim.testallo.api;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.mfekim.testallo.api.request.AVGsonRequest;
+import com.mfekim.testallo.model.config.AVConfigResponse;
 import com.mfekim.testallo.model.demand.AVDemandResponse;
 import com.mfekim.testallo.network.AVNetworkClient;
 
@@ -16,8 +18,19 @@ public class AVClientApi {
     /** Tag for logs. */
     private static final String TAG = AVClientApi.class.getSimpleName();
 
-    /** URLs. */
-    private static final String URL_DEMANDS = "https://firebasestorage.googleapis.com/v0/b/test-allo.appspot.com/o/service.json?alt=media&token=79528d72-b75b-44d4-b293-33b275fab3e4";
+    /** Host. */
+    private static String HOST = "https://firebasestorage.googleapis.com/";
+
+    /* Base path. */
+    private static String BASE_PATH = "v0/b/test-allo.appspot.com/o/";
+
+    /** Filenames. */
+    private static String CONFIG_FILENAME = "indexes.json";
+    private static String DEMAND_FILENAME = "service.json";
+
+    /** Tokens. */
+    private static String CONFIG_TOKEN = "e11baacb-d377-4bf2-8b03-151e875dbcad";
+    private static String DEMAND_TOKEN = "79528d72-b75b-44d4-b293-33b275fab3e4";
 
     /** Holder. */
     private static class SingletonHolder {
@@ -32,6 +45,39 @@ public class AVClientApi {
 
     /** Private constructor. */
     private AVClientApi() {
+    }
+
+    /**
+     * Fetches config.
+     *
+     * @param context       Context.
+     * @param listener      Success listener.
+     * @param errorListener Error listener.
+     * @param requestTag    Request tag.
+     */
+    public void fetchConfig(Context context, final Response.Listener<AVConfigResponse> listener,
+                            final Response.ErrorListener errorListener, String requestTag) {
+        AVGsonRequest request = new AVGsonRequest<>(getConfigUrl(), AVConfigResponse.class, null,
+                new Response.Listener<AVConfigResponse>() {
+                    @Override
+                    public void onResponse(AVConfigResponse response) {
+                        Log.d(TAG, "Fetching config succeeded");
+                        if (listener != null) {
+                            listener.onResponse(response);
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e(TAG, "Fetching config failed - " + error.getLocalizedMessage());
+                        if (errorListener != null) {
+                            errorListener.onErrorResponse(error);
+                        }
+                    }
+                });
+        request.setTag(requestTag);
+        AVNetworkClient.getInstance().addToRequestQueue(context, request);
     }
 
     /**
@@ -70,10 +116,21 @@ public class AVClientApi {
     //region URL
 
     /**
+     * @return The URL to fetch config.
+     */
+    private String getConfigUrl() {
+        String url = HOST + BASE_PATH + CONFIG_FILENAME;
+        url = addParameters(url, "media", CONFIG_TOKEN);
+        return logUrl(url);
+    }
+
+    /**
      * @return The URL to fetch demands.
      */
     private String getDemandsUrl() {
-        return logUrl(URL_DEMANDS);
+        String url = HOST + BASE_PATH + DEMAND_FILENAME;
+        url = addParameters(url, "media", DEMAND_TOKEN);
+        return logUrl(url);
     }
 
     /**
@@ -87,4 +144,31 @@ public class AVClientApi {
         return url;
     }
     //endregion
+
+    /**
+     * Adds parameters to an URL.
+     *
+     * @param url   URL.
+     * @param alt   Alt.
+     * @param token Token.
+     * @return The URL passed as parameter with parameters.
+     */
+    private String addParameters(String url, String alt, String token) {
+        if (!TextUtils.isEmpty(url)) {
+            String params = "";
+            // Alt
+            if (!TextUtils.isEmpty(alt)) {
+                params += "?alt=" + alt;
+            }
+            // Token
+            if (!TextUtils.isEmpty(token)) {
+                params += TextUtils.isEmpty(params) ? "?" : "&";
+                params += "token=" + token;
+            }
+
+            url += params;
+        }
+
+        return url;
+    }
 }

@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
- * The API response when fetching demands.
+ * Response of the demand API.
  */
 public class AVDemandResponse {
     /** Tag for logs. */
