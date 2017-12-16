@@ -7,6 +7,7 @@
 
     <!-- Application -->
     <application
+        android:name=".AVApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/av_app_name"
@@ -15,7 +16,7 @@
         android:theme="@style/AppTheme">
 
         <!-- Activity Main -->
-        <activity android:name=".AVMainActivity">
+        <activity android:name=".demand.AVDemandListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

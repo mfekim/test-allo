@@ -3,8 +3,8 @@
 <resources>
 
     <!-- General -->
-    <color name="av_color_primary">#3F51B5</color>
-    <color name="av_color_primaryDark">#303F9F</color>
+    <color name="av_color_primary">#8BCD0A</color>
+    <color name="av_color_primaryDark">#7BB01D</color>
     <color name="av_color_accent">#FF4081</color>
 
 </resources>

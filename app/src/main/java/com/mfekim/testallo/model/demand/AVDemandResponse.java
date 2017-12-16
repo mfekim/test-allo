@@ -21,13 +21,20 @@ public class AVDemandResponse {
     private String mError;
 
     @SerializedName("result")
-    private List<AVDemand> mDemands;
+    private List<AVDemand> mResult;
 
     /**
      * @return True if an error exist, false otherwise.
      */
     public boolean hasError() {
         return !TextUtils.isEmpty(mError);
+    }
+
+    /**
+     * @return A list of {@link AVDemand}.
+     */
+    public List<AVDemand> getResult() {
+        return mResult;
     }
 
     @Override

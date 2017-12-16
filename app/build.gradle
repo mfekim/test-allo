@@ -23,7 +23,9 @@ android {
 ext {
     supportLibraryVersion = '26.1.0'
     gsonVersion = '2.8.2'
-    volleyVersion = '1.0.0'
+    volleyVersion = '1.1.0'
+    picassoVersion = '2.5.2'
+    picasso2Okhttp3DownloaderVersion = '1.1.0'
 }
 
 dependencies {
@@ -34,10 +36,15 @@ dependencies {
 
     // Android Support
     implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
+    implementation "com.android.support:recyclerview-v7:$supportLibraryVersion"
 
     // Volley (networking library)
     implementation "com.android.volley:volley:$volleyVersion"
 
     // Gson (parsing Library)
     compile "com.google.code.gson:gson:$gsonVersion"
+
+    // Picasso (image library)
+    compile "com.squareup.picasso:picasso:$picassoVersion"
+    compile "com.jakewharton.picasso:picasso2-okhttp3-downloader:$picasso2Okhttp3DownloaderVersion"
 }

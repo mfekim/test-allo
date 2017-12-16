@@ -1,6 +1,22 @@
 <resources>
 
+    <!-- General -->
+    <string name="av_object">Objet</string>
+    <string name="av_service">Service</string>
+
     <!-- Application name -->
     <string name="av_app_name">test-allo</string>
+
+    <!-- Activities Title -->
+    <string name="av_activity_demand_title">Autour de moi</string>
+
+    <!-- Messages -->
+    <string name="av_demand_list_no_data_msg">Aucune demande disponible pour le moment</string>
+
+    <!-- Demand info -->
+    <plurals name="av_answer_count_pattern">
+        <item quantity="one">%d voisin a répondu</item>
+        <item quantity="other">%d voisins ont répondu.</item>
+    </plurals>
 
 </resources>
