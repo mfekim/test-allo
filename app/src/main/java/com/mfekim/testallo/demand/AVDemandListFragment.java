@@ -20,8 +20,8 @@ import com.android.volley.VolleyError;
 import com.mfekim.testallo.R;
 import com.mfekim.testallo.api.AVClientApi;
 import com.mfekim.testallo.base.AVBaseFragment;
-import com.mfekim.testallo.model.demand.AVDemand;
-import com.mfekim.testallo.model.demand.AVDemandResponse;
+import com.mfekim.testallo.data.model.demand.AVDemand;
+import com.mfekim.testallo.data.model.demand.AVDemandResponse;
 import com.mfekim.testallo.network.AVNetworkClient;
 import com.mfekim.testallo.utils.AVBitmapUtils;
 import com.squareup.picasso.Callback;
@@ -204,7 +204,7 @@ public class AVDemandListFragment extends AVBaseFragment {
                 String thumbnailUrl = demand.getThumbnailUrl();
                 if (!TextUtils.isEmpty(thumbnailUrl)) {
                     Picasso.with(getContext())
-                           .load(demand.getThumbnailUrl())
+                           .load(thumbnailUrl)
                            .into(viewHolderDefault.imgThumbnail, new Callback() {
                                @Override
                                public void onSuccess() {

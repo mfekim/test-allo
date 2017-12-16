@@ -1,4 +1,4 @@
-package com.mfekim.testallo.model.config;
+package com.mfekim.testallo.data.model.config;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;

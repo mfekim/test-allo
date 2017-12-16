@@ -9,8 +9,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.mfekim.testallo.api.AVClientApi;
 import com.mfekim.testallo.base.AVBaseActivity;
+import com.mfekim.testallo.config.AVConfigManager;
+import com.mfekim.testallo.data.model.config.AVConfigResponse;
 import com.mfekim.testallo.demand.AVDemandListActivity;
-import com.mfekim.testallo.model.config.AVConfigResponse;
 import com.mfekim.testallo.network.AVNetworkClient;
 import com.mfekim.testallo.utils.AVConnectivityUtils;
 
@@ -22,7 +23,7 @@ public class AVLaunchActivity extends AVBaseActivity {
     private static final String TAG = AVLaunchActivity.class.getSimpleName();
 
     /** The minimum display time in milliseconds. */
-    private static final int MINIMUM_DISPLAY_TIME = 2500;
+    private static final int MINIMUM_DISPLAY_TIME = 2000;
 
     /** Used to display the next activity. */
     private Handler mHandler = new Handler();
@@ -52,10 +53,10 @@ public class AVLaunchActivity extends AVBaseActivity {
 
     @Override
     protected void onPause() {
-        super.onPause();
         AVNetworkClient.getInstance()
                        .cancelAllRequest(getApplicationContext(), String.valueOf(hashCode()));
         mHandler.removeCallbacks(mNextActivityStartingTask);
+        super.onPause();
     }
 
     /**
@@ -63,22 +64,33 @@ public class AVLaunchActivity extends AVBaseActivity {
      */
     private void checkConfig() {
         final long startMillis = System.currentTimeMillis();
-        if (AVConnectivityUtils.isConnected(this)) {
-            AVClientApi.getInstance().fetchConfig(this,
-                    new Response.Listener<AVConfigResponse>() {
-                        @Override
-                        public void onResponse(AVConfigResponse lbConfigEntity) {
-                            handleFetchConfigEnd(startMillis);
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError volleyError) {
-                            showAlertDialog(R.string.av_retrieve_data_failed_message);
-                        }
-                    }, String.valueOf(hashCode()));
+        if (!AVConfigManager.getInstance().isConfigExist(this)) {
+            if (AVConnectivityUtils.isConnected(this)) {
+                AVClientApi.getInstance().fetchConfig(this,
+                        new Response.Listener<AVConfigResponse>() {
+                            @Override
+                            public void onResponse(AVConfigResponse response) {
+                                if (!response.hasError() && response.hasResult()) {
+                                    AVConfigManager.getInstance()
+                                                   .saveConfigInBackground(AVLaunchActivity.this,
+                                                           response.getResult());
+                                    handleFetchConfigEnd(startMillis);
+                                } else {
+                                    showAlertDialog(R.string.av_retrieve_data_failed_message);
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError volleyError) {
+                                showAlertDialog(R.string.av_retrieve_data_failed_message);
+                            }
+                        }, String.valueOf(hashCode()));
+            } else {
+                showAlertDialog(R.string.av_no_internet_connection_first_launch_message);
+            }
         } else {
-            showAlertDialog(R.string.av_no_internet_connection_first_launch_message);
+            handleFetchConfigEnd(startMillis);
         }
     }
 

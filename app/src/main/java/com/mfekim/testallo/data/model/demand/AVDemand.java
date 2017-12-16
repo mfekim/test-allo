@@ -1,4 +1,4 @@
-package com.mfekim.testallo.model.demand;
+package com.mfekim.testallo.data.model.demand;
 
 import android.text.TextUtils;
 import android.util.Log;

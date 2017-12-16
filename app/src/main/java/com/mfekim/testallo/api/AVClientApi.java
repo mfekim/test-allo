@@ -7,8 +7,8 @@ import android.util.Log;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.mfekim.testallo.api.request.AVGsonRequest;
-import com.mfekim.testallo.model.config.AVConfigResponse;
-import com.mfekim.testallo.model.demand.AVDemandResponse;
+import com.mfekim.testallo.data.model.config.AVConfigResponse;
+import com.mfekim.testallo.data.model.demand.AVDemandResponse;
 import com.mfekim.testallo.network.AVNetworkClient;
 
 /**

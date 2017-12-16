@@ -1,4 +1,6 @@
-package com.mfekim.testallo.model.config;
+package com.mfekim.testallo.data.model.config;
+
+import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
@@ -18,6 +20,28 @@ public class AVConfigResponse {
 
     @SerializedName("result")
     private AVConfigResponseResult mResult;
+
+    /**
+     * @return True if an error exist, false otherwise.
+     */
+    public boolean hasError() {
+        return !TextUtils.isEmpty(mError);
+    }
+
+    /**
+     * @return True if there is a result, false otherwise.
+     */
+    public boolean hasResult() {
+        return getResult() != null;
+    }
+
+    /**
+     * @return The response result.
+     */
+    public AVConfigResponseResult getResult() {
+        return mResult;
+    }
+
 
     @Override
     public String toString() {
