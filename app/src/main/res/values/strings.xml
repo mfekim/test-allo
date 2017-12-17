@@ -17,7 +17,7 @@
     <string name="av_activity_demand_detail_title">Détail</string>
 
     <!-- Messages -->
-    <string name="av_demand_list_no_data_msg">Aucune demande disponible pour le moment</string>
+    <string name="av_demand_list_no_data_message">Aucune demande disponible pour le moment</string>
     <string name="av_retrieve_data_failed_message">Échec de la récupération des données.</string>
     <string name="av_no_internet_connection_first_launch_message">Une connexion Internet est nécessaire lors du premier lancement de l\'application.</string>
     <string name="av_demand_detail_no_description_message">Description non disponible</string>

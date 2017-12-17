@@ -9,21 +9,21 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.mfekim.testallo.api.AVClientApi;
 import com.mfekim.testallo.base.AVBaseActivity;
-import com.mfekim.testallo.config.AVConfigManager;
+import com.mfekim.testallo.configuration.AVConfigManager;
 import com.mfekim.testallo.data.model.config.AVConfigResponse;
 import com.mfekim.testallo.demand.list.AVDemandListActivity;
 import com.mfekim.testallo.network.AVNetworkClient;
 import com.mfekim.testallo.utils.AVConnectivityUtils;
 
 /**
- * Launch activity.
+ * Launch screen.
  */
 public class AVLaunchActivity extends AVBaseActivity {
     /** Tag for logs. */
     private static final String TAG = AVLaunchActivity.class.getSimpleName();
 
-    /** The minimum display time in milliseconds. */
-    private static final int MINIMUM_DISPLAY_TIME = 2000;
+    /** Minimum display time in milliseconds. */
+    private static final int MINIMUM_DISPLAY_TIME_MILLIS = 2000;
 
     /** Used to display the next activity. */
     private Handler mHandler = new Handler();
@@ -64,7 +64,9 @@ public class AVLaunchActivity extends AVBaseActivity {
      */
     private void checkConfig() {
         final long startMillis = System.currentTimeMillis();
-        if (!AVConfigManager.getInstance().isConfigExist(this)) {
+        if (AVConfigManager.getInstance().isConfigExist(this)) {
+            handleFetchConfigEnd(startMillis);
+        } else {
             if (AVConnectivityUtils.isConnected(this)) {
                 AVClientApi.getInstance().fetchConfig(this,
                         new Response.Listener<AVConfigResponse>() {
@@ -89,26 +91,24 @@ public class AVLaunchActivity extends AVBaseActivity {
             } else {
                 showAlertDialog(R.string.av_no_internet_connection_first_launch_message);
             }
-        } else {
-            handleFetchConfigEnd(startMillis);
         }
     }
 
     /**
      * Handles the end of the fetch config.
      *
-     * @param startTimeMillis The time in milliseconds when the config started to fetch.
+     * @param startTimeMillis Time in milliseconds when the config started to fetch.
      */
     private void handleFetchConfigEnd(long startTimeMillis) {
         long lastMillis = System.currentTimeMillis() - startTimeMillis;
         mHandler.postDelayed(mNextActivityStartingTask,
-                lastMillis >= MINIMUM_DISPLAY_TIME ? 0 : MINIMUM_DISPLAY_TIME - lastMillis);
+                lastMillis >= MINIMUM_DISPLAY_TIME_MILLIS ? 0 : MINIMUM_DISPLAY_TIME_MILLIS - lastMillis);
     }
 
     /**
      * Shows an alert dialog.
      *
-     * @param messageId The id of the message to display.
+     * @param messageId Id of the message to display.
      */
     private void showAlertDialog(final int messageId) {
         if (!isFinishing()) {
@@ -117,20 +117,22 @@ public class AVLaunchActivity extends AVBaseActivity {
                 public void run() {
                     new AlertDialog.Builder(AVLaunchActivity.this)
                             .setMessage(getString(messageId))
-                            .setPositiveButton(R.string.av_retry, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                    checkConfig();
-                                }
-                            })
-                            .setNegativeButton(R.string.av_exit, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                    finish();
-                                }
-                            })
+                            .setPositiveButton(R.string.av_retry,
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                            checkConfig();
+                                        }
+                                    })
+                            .setNegativeButton(R.string.av_exit,
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                            finish();
+                                        }
+                                    })
                             .setCancelable(false)
                             .create()
                             .show();

@@ -31,7 +31,7 @@ public class AVDemandDetailFragment extends AVBaseFragment {
     /** Tag for logs. */
     private static final String TAG = AVDemandDetailFragment.class.getSimpleName();
 
-    /** The format to use to display date. */
+    /** Format to use to display date. */
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd MMMM yyyy", Locale.FRENCH);
 
     /** A demand. */

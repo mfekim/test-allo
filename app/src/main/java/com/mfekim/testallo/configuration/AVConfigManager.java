@@ -1,4 +1,4 @@
-package com.mfekim.testallo.config;
+package com.mfekim.testallo.configuration;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -20,7 +20,7 @@ public class AVConfigManager {
     /** Tag for logs. */
     private static final String TAG = AVConfigManager.class.getSimpleName();
 
-    /** The name of the file which contains the last retrieved configuration data. */
+    /** Name of the file which contains the last retrieved configuration data. */
     private static final String CONFIG_FILENAME = "configuration.json";
 
     /** Holder. */
@@ -86,7 +86,7 @@ public class AVConfigManager {
      * Builds a map of categories (id => object).
      *
      * @param config Configuration data.
-     * @return A map of categories (id => object), null otherwise.
+     * @return Map of categories (id => object), null otherwise.
      */
     private Map<String, AVCategory> buildMapCategory(AVConfigResponseResult config) {
         Map<String, AVCategory> mapCategory = null;
@@ -106,7 +106,7 @@ public class AVConfigManager {
     }
 
     /**
-     * @return the configuration saved into the app's internal memory, null otherwise.
+     * @return the configuration saved into the app internal memory, null otherwise.
      */
     private AVConfigResponseResult getConfig(Context context) {
         if (mConfig == null) {

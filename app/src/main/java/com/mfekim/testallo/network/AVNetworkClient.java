@@ -37,18 +37,18 @@ public class AVNetworkClient {
     /**
      * Adds a request to the queue to be executed.
      *
-     * @param context A context.
-     * @param request The request to execute.
+     * @param context Context.
+     * @param request Request to execute.
      */
     public void addToRequestQueue(Context context, Request request) {
         getRequestQueue(context).add(request);
     }
 
     /**
-     * Cancels all requests which have the tag pass as parameter.
+     * Cancels all requests which have the tag passed as parameter.
      *
-     * @param context    A context.
-     * @param requestTag A request tag which indicates which request to cancel.
+     * @param context    Context.
+     * @param requestTag Request tag which indicates which request to cancel.
      */
     public void cancelAllRequest(Context context, String requestTag) {
         if (!TextUtils.isEmpty(requestTag)) {
@@ -58,10 +58,10 @@ public class AVNetworkClient {
     }
 
     /**
-     * @param context A context.
+     * @param context Context.
      * @return The Volley request queue.
      */
-    public RequestQueue getRequestQueue(Context context) {
+    private RequestQueue getRequestQueue(Context context) {
         if (mRequestQueue == null) {
             // getApplicationContext() is key, it keeps you from leaking the
             // Activity or BroadcastReceiver if someone passes one in.

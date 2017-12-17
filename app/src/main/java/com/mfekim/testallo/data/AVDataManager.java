@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * Manages app's data.
+ * Manages app data.
  */
 public class AVDataManager {
     /** Tag for logs. */
@@ -127,5 +127,4 @@ public class AVDataManager {
         }
         return false;
     }
-    //endregion
 }

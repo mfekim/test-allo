@@ -30,12 +30,15 @@ public class AVDemandResponse {
         return !TextUtils.isEmpty(mError);
     }
 
+    //region Getters
+
     /**
-     * @return A list of {@link AVDemand}.
+     * @return List of {@link AVDemand}.
      */
     public List<AVDemand> getResult() {
         return mResult;
     }
+    //endregion
 
     @Override
     public String toString() {

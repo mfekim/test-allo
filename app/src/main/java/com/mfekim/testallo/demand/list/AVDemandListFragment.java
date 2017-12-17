@@ -17,7 +17,7 @@ import com.android.volley.VolleyError;
 import com.mfekim.testallo.R;
 import com.mfekim.testallo.api.AVClientApi;
 import com.mfekim.testallo.base.AVBaseFragment;
-import com.mfekim.testallo.config.AVConfigManager;
+import com.mfekim.testallo.configuration.AVConfigManager;
 import com.mfekim.testallo.data.model.config.AVCategory;
 import com.mfekim.testallo.data.model.demand.AVDemand;
 import com.mfekim.testallo.data.model.demand.AVDemandResponse;
@@ -42,7 +42,7 @@ public class AVDemandListFragment extends AVBaseFragment {
     /** Request tag. */
     private static final String REQUEST_TAG = "demand_list_request_tag";
 
-    /** The format to use to display time. */
+    /** Format to use to display time. */
     private static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH'h'mm", Locale.FRENCH);
 
     /** Views. */
@@ -174,7 +174,7 @@ public class AVDemandListFragment extends AVBaseFragment {
     /**
      * Manages demand list.
      */
-    /*package*/ class AVDemandListAdapter extends
+    /*package*/class AVDemandListAdapter extends
             RecyclerView.Adapter<AVDemandListAdapter.AVViewHolder> {
         /** Types. */
         private static final int VIEW_TYPE_ITEM_DEFAULT = 0;
@@ -304,9 +304,9 @@ public class AVDemandListFragment extends AVBaseFragment {
         /**
          * View holder.
          */
-        /*package*/ abstract class AVViewHolder extends RecyclerView.ViewHolder {
+        /*package*/abstract class AVViewHolder extends RecyclerView.ViewHolder {
             /** {@inheritDoc} */
-            public AVViewHolder(View itemView) {
+            /*package*/AVViewHolder(View itemView) {
                 super(itemView);
             }
         }
@@ -314,7 +314,7 @@ public class AVDemandListFragment extends AVBaseFragment {
         /**
          * View holder for default item.
          */
-        /*package*/ class AVViewHolderDefault extends AVViewHolder {
+        /*package*/class AVViewHolderDefault extends AVViewHolder {
             /* Views. */
             ImageView imgThumbnail;
             TextView tvName;
@@ -326,7 +326,7 @@ public class AVDemandListFragment extends AVBaseFragment {
             View vDivider;
 
             /** {@inheritDoc} */
-            public AVViewHolderDefault(View itemView) {
+            /*package*/AVViewHolderDefault(View itemView) {
                 super(itemView);
 
                 // Click

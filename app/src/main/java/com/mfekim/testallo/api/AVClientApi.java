@@ -47,6 +47,8 @@ public class AVClientApi {
     private AVClientApi() {
     }
 
+    //region API
+
     /**
      * Fetches config.
      *
@@ -112,6 +114,7 @@ public class AVClientApi {
         request.setTag(requestTag);
         AVNetworkClient.getInstance().addToRequestQueue(context, request);
     }
+    //endregion
 
     //region URL
 
@@ -143,7 +146,6 @@ public class AVClientApi {
         Log.d(TAG, "URL=" + url);
         return url;
     }
-    //endregion
 
     /**
      * Adds parameters to an URL.
@@ -171,4 +173,5 @@ public class AVClientApi {
 
         return url;
     }
+    //endregion
 }

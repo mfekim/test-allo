@@ -35,13 +35,15 @@ public class AVConfigResponse {
         return getResult() != null;
     }
 
+    //region Getters
+
     /**
      * @return The response result.
      */
     public AVConfigResponseResult getResult() {
         return mResult;
     }
-
+    //endregion
 
     @Override
     public String toString() {

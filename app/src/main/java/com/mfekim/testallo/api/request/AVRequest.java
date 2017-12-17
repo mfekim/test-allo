@@ -8,7 +8,7 @@ import com.android.volley.RetryPolicy;
 /**
  * Base request.
  */
-public abstract class AVRequest<T> extends Request<T> {
+/*package*/abstract class AVRequest<T> extends Request<T> {
     /** Tag for logs. */
     private static final String TAG = AVRequest.class.getSimpleName();
 
@@ -21,13 +21,14 @@ public abstract class AVRequest<T> extends Request<T> {
      *
      * @return A {@link RetryPolicy} instance.
      */
-    public static RetryPolicy getCustomRetryPolicy() {
+    /*package*/
+    static RetryPolicy getCustomRetryPolicy() {
         return new DefaultRetryPolicy(TIME_OUT_SECONDS * 1000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
     }
 
     /** {@inheritDoc} */
-    protected AVRequest(int method, String url, Response.ErrorListener listener) {
+    /*package*/AVRequest(int method, String url, Response.ErrorListener listener) {
         super(method, url, listener);
         setRetryPolicy(getCustomRetryPolicy());
     }

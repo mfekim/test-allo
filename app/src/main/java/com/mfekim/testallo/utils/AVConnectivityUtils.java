@@ -5,7 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 /**
- * Regroups helpful methods about connectivity.
+ * Regroups utils methods about connectivity.
  */
 public class AVConnectivityUtils {
     /** Tag for logs. */
