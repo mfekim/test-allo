@@ -1,8 +1,5 @@
 package com.mfekim.testallo.demand;
 
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,8 +22,7 @@ import com.mfekim.testallo.data.model.config.AVCategory;
 import com.mfekim.testallo.data.model.demand.AVDemand;
 import com.mfekim.testallo.data.model.demand.AVDemandResponse;
 import com.mfekim.testallo.network.AVNetworkClient;
-import com.mfekim.testallo.utils.AVBitmapUtils;
-import com.squareup.picasso.Callback;
+import com.mfekim.testallo.utils.AVPicassoUtils;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -203,30 +199,12 @@ public class AVDemandListFragment extends AVBaseFragment {
                 AVDemand demand = mDemands.get(position);
 
                 // Thumbnail
-                String thumbnailUrl = demand.getThumbnailUrl();
-                if (!TextUtils.isEmpty(thumbnailUrl)) {
-                    Picasso.with(getContext())
-                           .load(thumbnailUrl)
-                           .into(viewHolderDefault.imgThumbnail, new Callback() {
-                               @Override
-                               public void onSuccess() {
-                                   Bitmap imageBitmap = ((BitmapDrawable) viewHolderDefault
-                                           .imgThumbnail.getDrawable()).getBitmap();
-                                   Drawable imageDrawable =
-                                           AVBitmapUtils.roundBitmap(getResources(), imageBitmap);
-                                   viewHolderDefault.imgThumbnail.setImageDrawable(imageDrawable);
-                               }
-
-                               @Override
-                               public void onError() {
-                                   Log.e(TAG, "Thumbnail loading failed");
-                                   viewHolderDefault.imgThumbnail
-                                           .setImageResource(R.drawable.ic_placeholder_user);
-                               }
-                           });
-                } else {
-                    viewHolderDefault.imgThumbnail.setImageResource(R.drawable.ic_placeholder_user);
-                }
+                Picasso.with(getActivity())
+                       .load(demand.getThumbnailUrl())
+                       .error(R.drawable.ic_placeholder_user)
+                       .placeholder(R.drawable.ic_placeholder_user)
+                       .transform(AVPicassoUtils.getCircleTransformation())
+                       .into(viewHolderDefault.imgThumbnail);
 
                 // Name
                 String name = demand.getFirstName();

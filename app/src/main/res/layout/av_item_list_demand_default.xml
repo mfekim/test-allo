@@ -36,7 +36,6 @@
                 android:id="@+id/av_item_list_demand_thumbnail"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/ic_placeholder_user"
                 android:contentDescription="@null"
                 android:scaleType="centerCrop"/>
 
