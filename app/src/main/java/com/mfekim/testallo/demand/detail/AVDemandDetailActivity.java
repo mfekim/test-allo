@@ -5,14 +5,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 
 import com.mfekim.testallo.R;
 import com.mfekim.testallo.base.AVBaseActivity;
+import com.mfekim.testallo.data.model.demand.AVDemand;
 
 /**
  * Shows the demand detail.
  */
 public class AVDemandDetailActivity extends AVBaseActivity {
+    /** Extras. */
+    public static final String EXTRA_DEMAND = "demand";
+
     /** Tag for logs. */
     private static final String TAG = AVDemandDetailActivity.class.getSimpleName();
 
@@ -24,8 +29,9 @@ public class AVDemandDetailActivity extends AVBaseActivity {
      *
      * @param context Context.
      */
-    public static void launchActivity(Context context) {
+    public static void launchActivity(Context context, AVDemand demand) {
         Intent intent = new Intent(context, AVDemandDetailActivity.class);
+        intent.putExtra(EXTRA_DEMAND, demand);
         context.startActivity(intent);
     }
 
@@ -37,13 +43,26 @@ public class AVDemandDetailActivity extends AVBaseActivity {
         // Set action bar title
         setTitle(R.string.av_activity_demand_detail_title);
 
+        // Show back button
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
+        // Retrieve passed data
+        AVDemand demand = null;
+        if (getIntent().hasExtra(EXTRA_DEMAND)) {
+            demand = getIntent().getParcelableExtra(EXTRA_DEMAND);
+        } else {
+            Log.e(TAG, "No demand found");
+        }
+
         // Add fragment
         Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
         if (fragment == null) {
             getSupportFragmentManager()
                     .beginTransaction()
                     .add(R.id.av_activity_detail_demand_fragment_container,
-                            AVDemandDetailFragment.newInstance(), FRAGMENT_TAG)
+                            AVDemandDetailFragment.newInstance(demand), FRAGMENT_TAG)
                     .commit();
         }
     }

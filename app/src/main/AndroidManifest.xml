@@ -29,12 +29,15 @@
 
         <!-- Activity Demand List -->
         <activity
-            android:name=".demand.list.AVDemandListActivity">
+            android:name=".demand.list.AVDemandListActivity"
+            android:launchMode="singleTop">
         </activity>
 
         <!-- Activity Demand Detail -->
         <activity
-            android:name=".demand.detail.AVDemandDetailActivity">
+            android:name=".demand.detail.AVDemandDetailActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".demand.list.AVDemandListActivity">
         </activity>
 
     </application>

@@ -1,5 +1,7 @@
 package com.mfekim.testallo.data.model.demand;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -13,7 +15,7 @@ import java.util.Locale;
 /**
  * A demand.
  */
-public class AVDemand {
+public class AVDemand implements Parcelable {
     /* Demand Types. */
     public static final String OBJECT = "1";
     public static final String SERVICE = "2";
@@ -45,6 +47,9 @@ public class AVDemand {
     @SerializedName("updated_at")
     private String mUpdatedAt;
 
+    @SerializedName("published_at")
+    private String mPublishedAt;
+
     @SerializedName("city_name")
     private String mCityName;
 
@@ -54,8 +59,67 @@ public class AVDemand {
     @SerializedName("nb_conversation")
     private String mAnswerCount;
 
-    // The update date
+    @SerializedName("description")
+    private String mDescription;
+
+    // Update date
     private Date mUpdateDate;
+
+    // Publish date
+    private Date mPublishDate;
+
+    //region Parcelable Methods
+    public static final Parcelable.Creator<AVDemand> CREATOR =
+            new Parcelable.Creator<AVDemand>() {
+                @Override
+                public AVDemand createFromParcel(Parcel source) {
+                    return new AVDemand(source);
+                }
+
+                @Override
+                public AVDemand[] newArray(int size) {
+                    return new AVDemand[size];
+                }
+            };
+
+    public AVDemand(Parcel in) {
+        mThumbnailFilename = in.readString();
+        mFirstName = in.readString();
+        mLatitude = in.readString();
+        mLongitude = in.readString();
+        mCategoryId = in.readString();
+        mUpdatedAt = in.readString();
+        mPublishedAt = in.readString();
+        mCityName = in.readString();
+        mCategoryType = in.readString();
+        mAnswerCount = in.readString();
+        mDescription = in.readString();
+        mUpdateDate = (Date) in.readSerializable();
+        mPublishDate = (Date) in.readSerializable();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mThumbnailFilename);
+        dest.writeString(mFirstName);
+        dest.writeString(mLatitude);
+        dest.writeString(mLongitude);
+        dest.writeString(mCategoryId);
+        dest.writeString(mUpdatedAt);
+        dest.writeString(mPublishedAt);
+        dest.writeString(mCityName);
+        dest.writeString(mCategoryType);
+        dest.writeString(mAnswerCount);
+        dest.writeString(mDescription);
+        dest.writeSerializable(mUpdateDate);
+        dest.writeSerializable(mPublishDate);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+    //endregion
 
     /**
      * @return The update date, null otherwise.
@@ -70,6 +134,21 @@ public class AVDemand {
         }
 
         return mUpdateDate;
+    }
+
+    /**
+     * @return The publish date, null otherwise.
+     */
+    public Date getPublishDate() {
+        if (mPublishDate == null && !TextUtils.isEmpty(mPublishedAt)) {
+            try {
+                mPublishDate = DATE_FORMAT.parse(mPublishedAt);
+            } catch (ParseException e) {
+                Log.e(TAG, e.getLocalizedMessage());
+            }
+        }
+
+        return mPublishDate;
     }
 
     //region Getters
@@ -114,5 +193,10 @@ public class AVDemand {
             return 0;
         }
     }
+
+    public String getDescription() {
+        return mDescription;
+    }
+
     //endregion
 }

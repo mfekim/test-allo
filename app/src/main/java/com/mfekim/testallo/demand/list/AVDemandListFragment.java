@@ -334,8 +334,8 @@ public class AVDemandListFragment extends AVBaseFragment {
                         .setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                // TODO pass data
-                                AVDemandDetailActivity.launchActivity(getActivity());
+                                AVDemand demand = mDemands.get(getAdapterPosition());
+                                AVDemandDetailActivity.launchActivity(getActivity(), demand);
                             }
                         });
 
