@@ -43,7 +43,7 @@ public class AVDemandListFragment extends AVBaseFragment {
     private static final String REQUEST_TAG = "demand_list_request_tag";
 
     /** The format to use to display time. */
-    private static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm", Locale.FRENCH);
+    private static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH'h'mm", Locale.FRENCH);
 
     /** Views. */
     private RecyclerView mRvList;
