@@ -29,7 +29,12 @@
 
         <!-- Activity Demand List -->
         <activity
-            android:name=".demand.AVDemandListActivity">
+            android:name=".demand.list.AVDemandListActivity">
+        </activity>
+
+        <!-- Activity Demand Detail -->
+        <activity
+            android:name=".demand.detail.AVDemandDetailActivity">
         </activity>
 
     </application>

@@ -1,4 +1,4 @@
-package com.mfekim.testallo.demand;
+package com.mfekim.testallo.demand.list;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,6 +21,7 @@ import com.mfekim.testallo.config.AVConfigManager;
 import com.mfekim.testallo.data.model.config.AVCategory;
 import com.mfekim.testallo.data.model.demand.AVDemand;
 import com.mfekim.testallo.data.model.demand.AVDemandResponse;
+import com.mfekim.testallo.demand.detail.AVDemandDetailActivity;
 import com.mfekim.testallo.network.AVNetworkClient;
 import com.mfekim.testallo.utils.AVPicassoUtils;
 import com.squareup.picasso.Picasso;
@@ -333,7 +334,8 @@ public class AVDemandListFragment extends AVBaseFragment {
                         .setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                // TODO
+                                // TODO pass data
+                                AVDemandDetailActivity.launchActivity(getActivity());
                             }
                         });
 

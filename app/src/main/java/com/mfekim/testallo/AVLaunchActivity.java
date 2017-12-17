@@ -11,7 +11,7 @@ import com.mfekim.testallo.api.AVClientApi;
 import com.mfekim.testallo.base.AVBaseActivity;
 import com.mfekim.testallo.config.AVConfigManager;
 import com.mfekim.testallo.data.model.config.AVConfigResponse;
-import com.mfekim.testallo.demand.AVDemandListActivity;
+import com.mfekim.testallo.demand.list.AVDemandListActivity;
 import com.mfekim.testallo.network.AVNetworkClient;
 import com.mfekim.testallo.utils.AVConnectivityUtils;
 

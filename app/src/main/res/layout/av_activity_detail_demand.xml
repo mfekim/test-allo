@@ -5,11 +5,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".demand.list.AVDemandListActivity">
+    tools:context=".demand.detail.AVDemandDetailActivity">
 
     <!-- Fragment Container -->
     <FrameLayout
-        android:id="@+id/av_activity_list_demand_fragment_container"
+        android:id="@+id/av_activity_detail_demand_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
