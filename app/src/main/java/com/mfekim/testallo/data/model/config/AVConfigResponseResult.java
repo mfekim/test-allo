@@ -18,6 +18,12 @@ public class AVConfigResponseResult {
     @SerializedName("categories")
     private List<AVCategory> mCategories;
 
+    //region Getters
+    public List<AVCategory> getCategories() {
+        return mCategories;
+    }
+    //endregion
+
     @Override
     public String toString() {
         return GSON.toJson(this);

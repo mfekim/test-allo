@@ -14,4 +14,14 @@ public class AVCategory {
 
     @SerializedName("name")
     private String mName;
+
+    //region Getters
+    public String getId() {
+        return mId;
+    }
+
+    public String getName() {
+        return mName;
+    }
+    //endregion
 }

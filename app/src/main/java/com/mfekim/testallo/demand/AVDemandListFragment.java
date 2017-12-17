@@ -20,6 +20,8 @@ import com.android.volley.VolleyError;
 import com.mfekim.testallo.R;
 import com.mfekim.testallo.api.AVClientApi;
 import com.mfekim.testallo.base.AVBaseFragment;
+import com.mfekim.testallo.config.AVConfigManager;
+import com.mfekim.testallo.data.model.config.AVCategory;
 import com.mfekim.testallo.data.model.demand.AVDemand;
 import com.mfekim.testallo.data.model.demand.AVDemandResponse;
 import com.mfekim.testallo.network.AVNetworkClient;
@@ -238,8 +240,17 @@ public class AVDemandListFragment extends AVBaseFragment {
                 // Distance TODO
                 viewHolderDefault.tvDistance.setVisibility(View.GONE);
 
-                // Category TODO
-                viewHolderDefault.tvCategory.setVisibility(View.GONE);
+                // Category
+                AVCategory category = AVConfigManager
+                        .getInstance()
+                        .getCategory(getContext(), demand.getCategoryId());
+                String categoryName = category != null ? category.getName() : null;
+                if (TextUtils.isEmpty(categoryName)) {
+                    viewHolderDefault.tvCategory.setVisibility(View.GONE);
+                } else {
+                    viewHolderDefault.tvCategory.setText(categoryName);
+                    viewHolderDefault.tvCategory.setVisibility(View.VISIBLE);
+                }
 
                 //region Time and place
                 // Time
