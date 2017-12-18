@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 
 import com.mfekim.testallo.R;
 import com.mfekim.testallo.base.AVBaseActivity;
+import com.mfekim.testallo.utils.AVGooglePlayServicesUtils;
 
 /**
  * Shows a list of demands.
@@ -46,5 +47,11 @@ public class AVDemandListActivity extends AVBaseActivity {
                             AVDemandListFragment.newInstance(), FRAGMENT_TAG)
                     .commit();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        AVGooglePlayServicesUtils.isGooglePlayServicesAvailable(this);
+        super.onResume();
     }
 }
