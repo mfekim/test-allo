@@ -3,6 +3,7 @@ package com.mfekim.testallo.demand.detail;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -23,6 +24,9 @@ public class AVDemandDetailActivity extends AVBaseActivity {
 
     /** Fragment Tag. */
     private static final String FRAGMENT_TAG = "demand_detail_fragment_tag";
+
+    /** Demand detail fragment. */
+    private Fragment mDemandDetailFragment;
 
     /**
      * Launches the activity.
@@ -57,13 +61,23 @@ public class AVDemandDetailActivity extends AVBaseActivity {
         }
 
         // Add fragment
-        Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
-        if (fragment == null) {
+        mDemandDetailFragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
+        if (mDemandDetailFragment == null) {
+            mDemandDetailFragment = AVDemandDetailFragment.newInstance(demand);
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.av_activity_detail_demand_fragment_container,
-                            AVDemandDetailFragment.newInstance(demand), FRAGMENT_TAG)
+                    .add(R.id.av_activity_detail_demand_fragment_container, mDemandDetailFragment
+                            , FRAGMENT_TAG)
                     .commit();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (mDemandDetailFragment != null) {
+            mDemandDetailFragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 }

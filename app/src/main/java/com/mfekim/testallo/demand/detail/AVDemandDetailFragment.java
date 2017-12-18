@@ -1,6 +1,9 @@
 package com.mfekim.testallo.demand.detail;
 
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
@@ -11,9 +14,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.mfekim.testallo.R;
 import com.mfekim.testallo.base.AVBaseFragment;
 import com.mfekim.testallo.data.model.demand.AVDemand;
+import com.mfekim.testallo.location.AVCurrentLocationManager;
+import com.mfekim.testallo.location.AVLocationUtils;
 import com.mfekim.testallo.utils.AVPicassoUtils;
 import com.squareup.picasso.Picasso;
 
@@ -34,8 +40,14 @@ public class AVDemandDetailFragment extends AVBaseFragment {
     /** Format to use to display date. */
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd MMMM yyyy", Locale.FRENCH);
 
+    /** Views. */
+    private TextView mTvDistance;
+
     /** A demand. */
     private AVDemand mDemand;
+
+    /** Current Location. */
+    private Location mCurrentLocation;
 
     /**
      * @param demand A demand.
@@ -124,11 +136,67 @@ public class AVDemandDetailFragment extends AVBaseFragment {
                 tvName.setVisibility(View.VISIBLE);
             }
 
-            // Distance TODO
-            TextView tvDistance = view.findViewById(R.id.av_fragment_detail_demand_distance);
-            tvDistance.setVisibility(View.GONE);
+            // Distance
+            mTvDistance = view.findViewById(R.id.av_fragment_detail_demand_distance);
+            mTvDistance.setVisibility(View.GONE);
         } else {
             // TODO show an error page
         }
+    }
+
+    @Override
+    public void onResume() {
+        getCurrentLocationAsync();
+        super.onResume();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case AVCurrentLocationManager.PERMISSION_REQUEST_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted, yay! Do the
+                    // location-related task you need to do.
+                    getCurrentLocationAsync();
+                } else {
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+            }
+            break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    /**
+     * Updates the distance.
+     */
+    private void updateDistance() {
+        String distance = AVLocationUtils.distanceTo(mCurrentLocation, mDemand.getLocation());
+        if (TextUtils.isEmpty(distance)) {
+            mTvDistance.setVisibility(View.GONE);
+        } else {
+            mTvDistance.setText(distance);
+            mTvDistance.setVisibility(View.VISIBLE);
+        }
+    }
+
+    /**
+     * Gets the current location and update the distance.
+     */
+    private void getCurrentLocationAsync() {
+        AVCurrentLocationManager.getInstance()
+                                .getCurrentLocationAsync(getActivity(),
+                                        new OnSuccessListener<Location>() {
+                                            @Override
+                                            public void onSuccess(Location location) {
+                                                mCurrentLocation = location;
+                                                updateDistance();
+                                            }
+                                        });
     }
 }

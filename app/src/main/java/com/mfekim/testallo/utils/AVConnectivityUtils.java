@@ -7,7 +7,7 @@ import android.net.NetworkInfo;
 /**
  * Regroups utils methods about connectivity.
  */
-public class AVConnectivityUtils {
+public abstract class AVConnectivityUtils {
     /** Tag for logs. */
     private static final String TAG = AVConnectivityUtils.class.getSimpleName();
 

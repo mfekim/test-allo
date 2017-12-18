@@ -1,5 +1,6 @@
 package com.mfekim.testallo.data.model.demand;
 
+import android.location.Location;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
@@ -28,6 +29,9 @@ public class AVDemand implements Parcelable {
 
     /** Date format. */
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.FRENCH);
+
+    @SerializedName("search_id")
+    private String mSearchId;
 
     @SerializedName("avatar")
     private String mThumbnailFilename;
@@ -68,6 +72,9 @@ public class AVDemand implements Parcelable {
     // Publish date
     private Date mPublishDate;
 
+    // Location
+    private Location mLocation;
+
     //region Parcelable Methods
     public static final Parcelable.Creator<AVDemand> CREATOR =
             new Parcelable.Creator<AVDemand>() {
@@ -83,6 +90,7 @@ public class AVDemand implements Parcelable {
             };
 
     public AVDemand(Parcel in) {
+        mSearchId = in.readString();
         mThumbnailFilename = in.readString();
         mFirstName = in.readString();
         mLatitude = in.readString();
@@ -96,10 +104,12 @@ public class AVDemand implements Parcelable {
         mDescription = in.readString();
         mUpdateDate = (Date) in.readSerializable();
         mPublishDate = (Date) in.readSerializable();
+        mLocation = in.readParcelable(Location.class.getClassLoader());
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mSearchId);
         dest.writeString(mThumbnailFilename);
         dest.writeString(mFirstName);
         dest.writeString(mLatitude);
@@ -113,6 +123,7 @@ public class AVDemand implements Parcelable {
         dest.writeString(mDescription);
         dest.writeSerializable(mUpdateDate);
         dest.writeSerializable(mPublishDate);
+        dest.writeParcelable(mLocation, flags);
     }
 
     @Override
@@ -149,6 +160,26 @@ public class AVDemand implements Parcelable {
         }
 
         return mPublishDate;
+    }
+
+    /**
+     * @return A location, null otherwise.
+     */
+    public Location getLocation() {
+        if (mLocation == null) {
+            if (!TextUtils.isEmpty(mLatitude) && !TextUtils.isEmpty(mLongitude)) {
+                try {
+                    mLocation = new Location("Demand " + mSearchId);
+                    mLocation.setLatitude(Double.valueOf(mLatitude));
+                    mLocation.setLongitude(Double.valueOf(mLongitude));
+                } catch (NumberFormatException e) {
+                    Log.e(TAG, e.getLocalizedMessage());
+                    mLocation = null;
+                }
+            }
+        }
+
+        return mLocation;
     }
 
     //region Getters

@@ -9,7 +9,7 @@ import java.io.Reader;
 /**
  * Regroups IO utils methods.
  */
-public class AVIOUtils {
+public abstract class AVIOUtils {
     /** Tag for logs. */
     private static final String TAG = AVIOUtils.class.getSimpleName();
 

@@ -23,7 +23,7 @@ public class AVLaunchActivity extends AVBaseActivity {
     private static final String TAG = AVLaunchActivity.class.getSimpleName();
 
     /** Minimum display time in milliseconds. */
-    private static final int MINIMUM_DISPLAY_TIME_MILLIS = 2000;
+    private static final int MINIMUM_DISPLAY_TIME_MILLIS = 1000;
 
     /** Used to display the next activity. */
     private Handler mHandler = new Handler();

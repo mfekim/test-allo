@@ -3,6 +3,7 @@ package com.mfekim.testallo.demand.list;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
@@ -19,6 +20,9 @@ public class AVDemandListActivity extends AVBaseActivity {
 
     /** Fragment Tag. */
     private static final String FRAGMENT_TAG = "demand_list_fragment_tag";
+
+    /** Demand list fragment. */
+    private Fragment mDemandListFragment;
 
     /**
      * Launches the activity.
@@ -39,12 +43,13 @@ public class AVDemandListActivity extends AVBaseActivity {
         setTitle(R.string.av_activity_demand_list_title);
 
         // Add fragment
-        Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
-        if (fragment == null) {
+        mDemandListFragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
+        if (mDemandListFragment == null) {
+            mDemandListFragment = AVDemandListFragment.newInstance();
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.av_activity_list_demand_fragment_container,
-                            AVDemandListFragment.newInstance(), FRAGMENT_TAG)
+                    .add(R.id.av_activity_list_demand_fragment_container, mDemandListFragment,
+                            FRAGMENT_TAG)
                     .commit();
         }
     }
@@ -53,5 +58,14 @@ public class AVDemandListActivity extends AVBaseActivity {
     protected void onResume() {
         AVGooglePlayServicesUtils.isGooglePlayServicesAvailable(this);
         super.onResume();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (mDemandListFragment != null) {
+            mDemandListFragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
 }

@@ -1,6 +1,9 @@
 package com.mfekim.testallo.demand.list;
 
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +17,7 @@ import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.mfekim.testallo.R;
 import com.mfekim.testallo.api.AVClientApi;
 import com.mfekim.testallo.base.AVBaseFragment;
@@ -22,6 +26,8 @@ import com.mfekim.testallo.data.model.config.AVCategory;
 import com.mfekim.testallo.data.model.demand.AVDemand;
 import com.mfekim.testallo.data.model.demand.AVDemandResponse;
 import com.mfekim.testallo.demand.detail.AVDemandDetailActivity;
+import com.mfekim.testallo.location.AVCurrentLocationManager;
+import com.mfekim.testallo.location.AVLocationUtils;
 import com.mfekim.testallo.network.AVNetworkClient;
 import com.mfekim.testallo.utils.AVPicassoUtils;
 import com.squareup.picasso.Picasso;
@@ -58,6 +64,9 @@ public class AVDemandListFragment extends AVBaseFragment {
 
     /** Demands. */
     private List<AVDemand> mDemands = new ArrayList<>();
+
+    /** Current Location. */
+    private Location mCurrentLocation;
 
     /**
      * @return A new instance of {@link AVDemandListFragment}.
@@ -97,9 +106,37 @@ public class AVDemandListFragment extends AVBaseFragment {
     }
 
     @Override
+    public void onResume() {
+        getCurrentLocationAsync();
+        super.onResume();
+    }
+
+    @Override
     public void onDestroyView() {
         AVNetworkClient.getInstance().cancelAllRequest(getContext(), REQUEST_TAG);
         super.onDestroyView();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case AVCurrentLocationManager.PERMISSION_REQUEST_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted, yay! Do the
+                    // location-related task you need to do.
+                    getCurrentLocationAsync();
+                } else {
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+            }
+            break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
 
     //region Fetching
@@ -172,6 +209,23 @@ public class AVDemandListFragment extends AVBaseFragment {
     //endregion
 
     /**
+     * Gets the current location and update the adapter to calculate the distances.
+     */
+    private void getCurrentLocationAsync() {
+        AVCurrentLocationManager.getInstance()
+                                .getCurrentLocationAsync(getActivity(),
+                                        new OnSuccessListener<Location>() {
+                                            @Override
+                                            public void onSuccess(Location location) {
+                                                mCurrentLocation = location;
+                                                if (mAdapter != null) {
+                                                    mAdapter.notifyDataSetChanged();
+                                                }
+                                            }
+                                        });
+    }
+
+    /**
      * Manages demand list.
      */
     /*package*/class AVDemandListAdapter extends
@@ -216,8 +270,15 @@ public class AVDemandListFragment extends AVBaseFragment {
                     viewHolderDefault.tvName.setVisibility(View.VISIBLE);
                 }
 
-                // Distance TODO
-                viewHolderDefault.tvDistance.setVisibility(View.GONE);
+                // Distance
+                String distance = AVLocationUtils.distanceTo(mCurrentLocation,
+                        demand.getLocation());
+                if (TextUtils.isEmpty(distance)) {
+                    viewHolderDefault.tvDistance.setVisibility(View.GONE);
+                } else {
+                    viewHolderDefault.tvDistance.setText(distance);
+                    viewHolderDefault.tvDistance.setVisibility(View.VISIBLE);
+                }
 
                 // Category
                 AVCategory category = AVConfigManager

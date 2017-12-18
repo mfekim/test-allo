@@ -10,7 +10,7 @@ import com.squareup.picasso.Transformation;
 /**
  * Utils methods for Picasso library.
  */
-public class AVPicassoUtils {
+public abstract class AVPicassoUtils {
     /** Tag for logs. */
     private static final String TAG = AVPicassoUtils.class.getSimpleName();
 
