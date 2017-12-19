@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <!-- Main -->
+    <LinearLayout
+        android:id="@+id/av_item_list_demand_default_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:baselineAligned="false"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/av_activity_vertical_margin"
+        android:paddingEnd="@dimen/av_activity_horizontal_margin"
+        android:paddingLeft="@dimen/av_activity_horizontal_margin"
+        android:paddingRight="@dimen/av_activity_horizontal_margin"
+        android:paddingStart="@dimen/av_activity_horizontal_margin"
+        android:paddingTop="@dimen/av_activity_vertical_margin">
+
+        <!-- Left part -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.22"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <!-- Thumbnail -->
+            <ImageView
+                android:id="@+id/av_item_list_demand_thumbnail"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:contentDescription="@null"
+                android:scaleType="centerCrop"/>
+
+            <!-- Name -->
+            <TextView
+                android:id="@+id/av_item_list_demand_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:textColor="#01A1BA"
+                android:textStyle="bold"
+                tools:text="Charles-Henry"/>
+
+            <!-- Distance -->
+            <TextView
+                android:id="@+id/av_item_list_demand_distance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:gravity="center"
+                android:textColor="#A5A9AA"
+                tools:text="à 0,7 km"/>
+
+        </LinearLayout>
+
+        <!-- Right part -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.78"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <!-- Category -->
+            <TextView
+                android:id="@+id/av_item_list_demand_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="@android:color/black"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                tools:text="Transport de véhicule"/>
+
+            <!-- Time and Place -->
+            <TextView
+                android:id="@+id/av_item_list_demand_time_and_place"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="#585858"
+                android:textStyle="bold"
+                tools:text="08h24 - Paris 17e arrondissement"/>
+
+            <!-- Category Type -->
+            <TextView
+                android:id="@+id/av_item_list_demand_category_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textStyle="italic"
+                tools:text="Objet"/>
+
+            <!-- Answer count -->
+            <TextView
+                android:id="@+id/av_item_list_demand_answer_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:drawableLeft="@drawable/ic_bubble"
+                android:drawablePadding="5dp"
+                android:drawableStart="@drawable/ic_bubble"
+                android:ellipsize="end"
+                android:maxLines="1"
+                tools:text="1 voisin à répondu"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Divider -->
+    <View
+        android:id="@+id/av_item_list_demand_default_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/av_item_list_demand_default_main"
+        android:background="#EFEFEF"/>
+
+</RelativeLayout>

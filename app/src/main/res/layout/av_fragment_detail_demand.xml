@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- Top Part -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <!-- -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/av_fragment_detail_demand_buttons_top_divider"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <!-- Left Part -->
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.75"
+                android:paddingBottom="@dimen/av_activity_vertical_margin"
+                android:paddingEnd="@dimen/av_activity_horizontal_margin"
+                android:paddingLeft="@dimen/av_activity_horizontal_margin"
+                android:paddingRight="@dimen/av_activity_horizontal_margin"
+                android:paddingStart="@dimen/av_activity_horizontal_margin"
+                android:paddingTop="@dimen/av_activity_vertical_margin">
+
+                <!-- Date -->
+                <TextView
+                    android:id="@+id/av_fragment_detail_demand_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="#A7A9AB"
+                    tools:text="Posté le 08 jullet 2017"/>
+
+                <!-- Description -->
+                <TextView
+                    android:id="@+id/av_fragment_detail_demand_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_above="@+id/av_fragment_detail_demand_answer_count"
+                    android:layout_below="@id/av_fragment_detail_demand_date"
+                    android:layout_marginTop="5dp"
+                    android:scrollbars="vertical"
+                    android:textColor="#808080"
+                    tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"/>
+
+                <!-- Answer count -->
+                <TextView
+                    android:id="@+id/av_fragment_detail_demand_answer_count"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/ic_bubble"
+                    android:drawablePadding="5dp"
+                    android:drawableStart="@drawable/ic_bubble"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="#A7A9AB"
+                    tools:text="1 voisin à répondu"/>
+
+            </RelativeLayout>
+
+            <!-- Right Part -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.25"
+                android:background="#EFEFEF"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/av_activity_vertical_margin"
+                android:paddingEnd="@dimen/av_activity_horizontal_margin"
+                android:paddingLeft="@dimen/av_activity_horizontal_margin"
+                android:paddingRight="@dimen/av_activity_horizontal_margin"
+                android:paddingStart="@dimen/av_activity_horizontal_margin"
+                android:paddingTop="@dimen/av_activity_vertical_margin">
+
+                <!-- Thumbnail -->
+                <ImageView
+                    android:id="@+id/av_fragment_detail_demand_thumbnail"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="5dp"
+                    android:contentDescription="@null"
+                    android:scaleType="centerCrop"
+                    tools:background="@android:color/holo_red_dark"/>
+
+                <!-- Name -->
+                <TextView
+                    android:id="@+id/av_fragment_detail_demand_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:maxLines="2"
+                    android:textColor="#A0D355"
+                    android:textStyle="bold"
+                    tools:text="cc"/>
+
+                <!-- Distance -->
+                <TextView
+                    android:id="@+id/av_fragment_detail_demand_distance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="#808080"
+                    tools:text="à 0,7 km"/>
+
+                <!-- Search -->
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@null"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_search"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Divider -->
+        <View
+            android:id="@+id/av_fragment_detail_demand_buttons_top_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_above="@+id/av_fragment_detail_demand_button_container"
+            android:background="#EFEFEF"/>
+
+        <!-- -->
+        <LinearLayout
+            android:id="@+id/av_fragment_detail_demand_button_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/av_fragment_detail_demand_buttons_bottom_divider"
+            android:orientation="horizontal">
+
+            <!-- Question Button -->
+            <Button
+                android:id="@+id/av_fragment_detail_demand_question_button"
+                style="?android:borderlessButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackground"
+                android:text="@string/av_ask_question"
+                android:textAllCaps="false"
+                android:textColor="#5A5857"/>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#EFEFEF"/>
+
+            <!-- Answer Button -->
+            <Button
+                android:id="@+id/av_fragment_detail_demand_answer_button"
+                style="?android:borderlessButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackground"
+                android:text="@string/av_make_an_offer"
+                android:textAllCaps="false"
+                android:textColor="#FF1464"/>
+
+        </LinearLayout>
+
+        <!-- Divider -->
+        <View
+            android:id="@+id/av_fragment_detail_demand_buttons_bottom_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="#EFEFEF"/>
+
+    </RelativeLayout>
+
+    <!-- Bottom Part -->
+    <fragment
+        android:id="@+id/av_fragment_detail_demand_map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+</LinearLayout>

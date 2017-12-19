@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- List -->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/av_fragment_list_demand_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:scrollbarStyle="outsideOverlay"
+        android:scrollbars="vertical"/>
+
+    <!-- No Data Msg -->
+    <TextView
+        android:id="@+id/av_fragment_list_demand_no_data_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:paddingBottom="@dimen/av_activity_vertical_margin"
+        android:paddingEnd="@dimen/av_activity_horizontal_margin"
+        android:paddingLeft="@dimen/av_activity_horizontal_margin"
+        android:paddingRight="@dimen/av_activity_horizontal_margin"
+        android:paddingStart="@dimen/av_activity_horizontal_margin"
+        android:paddingTop="@dimen/av_activity_vertical_margin"
+        android:text="@string/av_demand_list_no_data_message"
+        android:visibility="invisible"
+        tools:visibility="visible"/>
+
+    <!-- Loader -->
+    <ProgressBar
+        android:id="@+id/av_fragment_list_demand_loader"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="invisible"
+        tools:visibility="visible"/>
+
+</RelativeLayout>
