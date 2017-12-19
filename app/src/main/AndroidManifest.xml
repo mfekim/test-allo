@@ -41,6 +41,16 @@
             android:parentActivityName=".demand.list.AVDemandListActivity">
         </activity>
 
+        <!-- Google API Key -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCQpS49SYQcjGjO-cnKuoQBKXIdGaCpoqY"/>
+
+        <!-- Google Play Services -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
+
     </application>
 
 </manifest>

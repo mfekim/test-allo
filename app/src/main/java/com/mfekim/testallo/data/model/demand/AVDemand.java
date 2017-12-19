@@ -167,7 +167,7 @@ public class AVDemand implements Parcelable {
      */
     public Location getLocation() {
         if (mLocation == null) {
-            if (!TextUtils.isEmpty(mLatitude) && !TextUtils.isEmpty(mLongitude)) {
+            if (hasLatitude() && hasLongitude()) {
                 try {
                     mLocation = new Location("Demand " + mSearchId);
                     mLocation.setLatitude(Double.valueOf(mLatitude));
@@ -182,6 +182,20 @@ public class AVDemand implements Parcelable {
         return mLocation;
     }
 
+    /**
+     * @return True if there is a latitude, false otherwise.
+     */
+    public boolean hasLatitude() {
+        return !TextUtils.isEmpty(mLatitude) && getLatitude() != null;
+    }
+
+    /**
+     * @return True if there is a longitude, false otherwise.
+     */
+    public boolean hasLongitude() {
+        return !TextUtils.isEmpty(mLongitude) && getLongitude() != null;
+    }
+
     //region Getters
     public String getThumbnailUrl() {
         return TextUtils.isEmpty(mThumbnailFilename) ? null :
@@ -192,12 +206,22 @@ public class AVDemand implements Parcelable {
         return mFirstName;
     }
 
-    public String getLatitude() {
-        return mLatitude;
+    public Double getLatitude() {
+        try {
+            return Double.valueOf(mLatitude);
+        } catch (NumberFormatException e) {
+            Log.e(TAG, e.getLocalizedMessage());
+            return null;
+        }
     }
 
-    public String getLongitude() {
-        return mLongitude;
+    public Double getLongitude() {
+        try {
+            return Double.valueOf(mLongitude);
+        } catch (NumberFormatException e) {
+            Log.e(TAG, e.getLocalizedMessage());
+            return null;
+        }
     }
 
     public String getCategoryId() {

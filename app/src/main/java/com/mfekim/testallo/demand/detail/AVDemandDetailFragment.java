@@ -14,6 +14,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.mfekim.testallo.R;
 import com.mfekim.testallo.base.AVBaseFragment;
@@ -87,6 +94,30 @@ public class AVDemandDetailFragment extends AVBaseFragment {
         super.onViewCreated(view, savedInstanceState);
 
         if (mDemand != null) {
+            // Map
+            SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
+                    .findFragmentById(R.id.av_fragment_detail_demand_map);
+            if (mapFragment != null) {
+                mapFragment.getMapAsync(new OnMapReadyCallback() {
+                    @Override
+                    public void onMapReady(GoogleMap googleMap) {
+                        if (mDemand != null && mDemand.hasLatitude() && mDemand.hasLongitude()) {
+                            LatLng latLng = new LatLng(mDemand.getLatitude(),
+                                    mDemand.getLongitude());
+                            MarkerOptions markerOptions = new MarkerOptions();
+                            markerOptions.position(latLng)
+                                         .icon(BitmapDescriptorFactory
+                                                 .fromResource(R.drawable.ic_marker_default));
+                            googleMap.addMarker(markerOptions);
+                            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));
+
+                        }
+                    }
+                });
+            } else {
+                // TODO Handle this case
+            }
+
             // Date
             TextView tvDate = view.findViewById(R.id.av_fragment_detail_demand_date);
             Date publishDate = mDemand.getPublishDate();
